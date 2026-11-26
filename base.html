@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>University Social Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <h2>CampusConnect</h2>
+            {% if session.get('user_id') %}
+                <div>
+                    <span>Logged in as: <strong>{{ session.username }}</strong> ({{ session.university }})</span>
+                    <a href="{{ url_for('index') }}">Feed</a>
+                    <a href="{{ url_for('reports_dashboard') }}">Reports Dashboard</a>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            {% endif %}
+        </nav>
+    </header>
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

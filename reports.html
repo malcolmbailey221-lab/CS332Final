@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="reports-container">
+    <h2>System Reports Dashboard</h2>
+    <p class="subtitle">Generated to fulfill project requirements for database summaries and data tracking.</p>
+
+    <div class="card">
+        <h3>1. User Credentials Report (Usernames & Passwords)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>University</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in user_credentials %}
+                <tr>
+                    <td>{{ u.username }}</td>
+                    <td>{{ u.password }}</td>
+                    <td>{{ u.university }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h3>2. University Discussion Boards Summary</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>University</th>
+                    <th>Total Posts</th>
+                    <th>Total Likes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in board_summary %}
+                <tr>
+                    <td>{{ b.university }}</td>
+                    <td>{{ b.post_count }}</td>
+                    <td>{{ b.total_likes or 0 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h3>3. Post Reports & Safety Log</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Post Content</th>
+                    <th>Reported By</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in all_reports %}
+                <tr>
+                    <td>{{ r.content }}</td>
+                    <td>{{ r.reporter }}</td>
+                    <td>{{ r.reason }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
